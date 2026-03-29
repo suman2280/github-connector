@@ -25,7 +25,7 @@ def get_issues(owner: str, repo: str):
 
 
 @router.post("/create-issue")
-def create_issue(owner: str, repo: str, title: str, body: str):
+def create_issue_route(owner: str, repo: str, title: str, body: str):
     try:
         return create_issue(owner, repo, title, body)
     except Exception as e:
