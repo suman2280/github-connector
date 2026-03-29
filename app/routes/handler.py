@@ -2,11 +2,11 @@ from fastapi import APIRouter, HTTPException
 from app.client import (
     get_user_repos,
     list_repo_issues,
-    create_issue
+    create_issue,
+    list_repo_commits
 )
 
 router = APIRouter()
-
 
 @router.get("/repos/{username}")
 def get_repos(username: str):
@@ -15,7 +15,6 @@ def get_repos(username: str):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-
 @router.get("/list-issues/{owner}/{repo}")
 def get_issues(owner: str, repo: str):
     try:
@@ -23,10 +22,16 @@ def get_issues(owner: str, repo: str):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-
 @router.post("/create-issue")
 def create_issue_route(owner: str, repo: str, title: str, body: str):
     try:
         return create_issue(owner, repo, title, body)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@router.get("/commits/{owner}/{repo}")
+def get_commits(owner: str, repo: str, per_page: int = 10, branch: str = "main"):
+    try:
+        return list_repo_commits(owner, repo, per_page, branch)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
