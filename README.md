@@ -13,12 +13,12 @@ Then create ``.env`` file (or rename and modify ``.env.example``) in project roo
 
 ```bash
 touch .env
-    echo GITHUB_TOKEN=your_github_PAT >> .env
+echo GITHUB_TOKEN=your_github_PAT >> .env
 ```
 To run the web application in debug use:
 
 ```bash
-    uvicorn app.main:app --reload
+uvicorn app.main:app --reload
 ```
 
 Web routes
