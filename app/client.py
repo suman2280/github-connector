@@ -19,8 +19,8 @@ def get_user_repos(username: str):
     return response.json()
 
 
-def list_repo_issues(owner: str, repo: str):
-    url = f"{BASE_URL}/repos/{owner}/{repo}/issues"
+def list_repo_issues(username: str, repo: str):
+    url = f"{BASE_URL}/repos/{username}/{repo}/issues"
     response = requests.get(url, headers=HEADERS)
 
     if response.status_code != 200:
@@ -29,8 +29,8 @@ def list_repo_issues(owner: str, repo: str):
     return response.json()
 
 
-def create_issue(owner: str, repo: str, title: str, body: str):
-    url = f"{BASE_URL}/repos/{owner}/{repo}/issues"
+def create_issue(username: str, repo: str, title: str, body: str):
+    url = f"{BASE_URL}/repos/{username}/{repo}/issues"
 
     payload = {
         "title": title,
@@ -44,8 +44,8 @@ def create_issue(owner: str, repo: str, title: str, body: str):
 
     return response.json()
 
-def list_repo_commits(owner: str, repo: str, per_page: int = 10, branch: str = "main"):
-    url = f"{BASE_URL}/repos/{owner}/{repo}/commits"
+def list_repo_commits(username: str, repo: str, per_page: int, branch: str):
+    url = f"{BASE_URL}/repos/{username}/{repo}/commits"
     params = {
         "per_page": per_page
     }
@@ -55,5 +55,19 @@ def list_repo_commits(owner: str, repo: str, per_page: int = 10, branch: str = "
     response = requests.get(url,  params=params)
     if response.status_code != 200:
         raise Exception(f"GitHub API error: {response.json()}")
+
+    return response.json()
+
+def create_pull_request(username: str, repo: str, title: str, head: str, base: str, body: str):
+    url = f"{BASE_URL}/repos/{username}/{repo}/pulls"
+    payload = {
+        "title": title,
+        "head": head,
+        "base": base,
+        "body": body
+    }
+    response = requests.post(url=url, headers=HEADERS, json=payload)
+    if response.status_code != 201:
+         raise Exception(f"GitHub API error: {response.json()}")
 
     return response.json()

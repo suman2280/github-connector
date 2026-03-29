@@ -32,8 +32,10 @@ Once running, access:
 ----------
 
 - `GET /repos/{username}` - List all repos of user
-- `GET /list-issues/{owner}/{repo}` - List all issues of a repo
+- `GET /list-issues/{username}/{repo}` - List all issues of a repo
 - `POST /create-issue` - Creates a issue on a repo
+- `GET /commits/{username}/{repo}` - List all commits of a repo
+- `POST /create-pr` - Creates a pull request on a repo
 
 Project structure
 -----------------
